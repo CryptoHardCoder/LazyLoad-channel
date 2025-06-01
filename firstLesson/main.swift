@@ -295,3 +295,6 @@ if let inputNumberOne = Double(inputNumberOne){
     print("Вы ввели неправильно первое число => \(inputNumberOne)")
 }
 
+
+
+
