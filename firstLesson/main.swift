@@ -4,7 +4,7 @@
 //
 //  Created by M3 pro on 25/05/2025.
 //
-
+/*
 import Foundation
 
 print("Hello, World!")
@@ -73,11 +73,9 @@ print(result3)
 
 if age <= 30 {
     print("Ты еще молод, набирай опыта, совершенствуйся")
-}
-else if age > 30 && age < 36 {
+} else if age > 30 && age < 36 {
     print("Развивайся максимально, не останавливайся, думай только на позитиве, ты скоро станешь миллионером!")
-}
-else {
+}else {
     print("Ты живи на свое удоволствие, ты это заслужил")
 }
 
@@ -259,3 +257,41 @@ print(one1 + (two2 ?? 0)) // мы взяли под скобку опциона�
     Этот оператор похож на оператор PYTHON if isinstance
  
 */
+ */
+
+                        // Код калькулятора
+print("Добро пожаловать в калькулятор")
+
+print("Выберите операцию: +, -, * или /")
+
+var operation = readLine() ?? ""
+
+print("Введите первое целое число: ")
+let inputNumberOne = readLine() ?? ""
+
+print("Введите второе целое число: ")
+let inputNumberTwo = readLine() ?? ""
+
+print("Идет вычисление...")
+
+if let inputNumberOne = Double(inputNumberOne){
+    if let inputNumberTwo = Double(inputNumberTwo){
+        switch operation{
+        case "+": print("Результат: ", String(inputNumberOne + inputNumberTwo))
+        case "-": print("Результат: ", String(inputNumberOne - inputNumberTwo))
+        case "*": print("Результат: ", String(inputNumberOne * inputNumberTwo))
+        case "/":
+            if inputNumberTwo != 0 {
+                print("Результат: ", String(inputNumberOne / inputNumberTwo))
+            } else {
+                print("На 0 делить нельзя!")
+            }
+        default: print("Вы ввелу неверную операцию")
+        }
+    } else{
+        print("Вы ввели неправильно второе число => \(inputNumberTwo)")
+    }
+}else{
+    print("Вы ввели неправильно первое число => \(inputNumberOne)")
+}
+
