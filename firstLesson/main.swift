@@ -260,7 +260,7 @@ print(one1 + (two2 ?? 0)) // мы взяли под скобку опциона�
  */
 
                         // Код калькулятора
-
+/*
 print("Добро пожаловать в калькулятор")
 
 print("Выберите операцию: +, -, * или /")
@@ -275,8 +275,8 @@ let inputNumberTwo = readLine() ?? ""
 
 print("Идет вычисление...")
 
-if let inputNumberOne = Double(inputNumberOne){
-    if let inputNumberTwo = Double(inputNumberTwo){
+if let inputNumberOne = Int(inputNumberOne){
+    if let inputNumberTwo = Int(inputNumberTwo){
         switch operation{
         case "+": print("Результат: ", String(inputNumberOne + inputNumberTwo))
         case "-": print("Результат: ", String(inputNumberOne - inputNumberTwo))
@@ -296,6 +296,51 @@ if let inputNumberOne = Double(inputNumberOne){
     print("Вы ввели неправильно первое число => \(inputNumberOne)")
 }
 
+*/
 
 
+                        //Рефакторинг кода калькулятора
+
+func inputNumber(description: String ) -> String {
+    print(description)
+    let inpuData = readLine() ?? ""
+    
+    return inpuData
+}
+
+func calculate(operation: String, numberOne: Int, numberTwo: Int){
+    switch operation{
+    case "+": print("Результат: ", String(numberOne + numberTwo))
+    case "-": print("Результат: ", String(numberOne - numberTwo))
+    case "*": print("Результат: ", String(numberOne * numberTwo))
+    case "/":
+        if numberTwo != 0 {
+            print("Результат: ", String(numberOne / numberTwo))
+        } else {
+            print("На 0 делить нельзя!")
+        }
+    default: print("Вы ввелу неверную операцию")
+    }
+}
+
+
+print("Добро пожаловать в калькулятор")
+
+let operation = inputNumber(description: "Выберите операцию: +, -, * или /")
+
+let numberOne = inputNumber(description: "Введите первое целое число: ")
+
+let numberTwo = inputNumber(description: "Введите второе целое число: ")
+
+print("Идет вычисление...")
+
+if let numberOne = Int(numberOne){
+    if let numberTwo = Int(numberTwo){
+       calculate(operation: operation, numberOne: numberOne, numberTwo: numberTwo)
+    } else {
+        print("Вы ввели неправильно второе число => \(numberTwo)")
+    }
+} else {
+    print("Вы ввели неправильно первое число => \(numberOne)")
+}
 
