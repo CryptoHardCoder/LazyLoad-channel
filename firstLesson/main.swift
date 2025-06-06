@@ -300,7 +300,7 @@ if let inputNumberOne = Int(inputNumberOne){
 
 
                         //Рефакторинг кода калькулятора
-
+/*
 func inputNumber(description: String ) -> String {
     print(description)
     let inpuData = readLine() ?? ""
@@ -343,4 +343,75 @@ if let numberOne = Int(numberOne){
 } else {
     print("Вы ввели неправильно первое число => \(numberOne)")
 }
+ */
 
+                        // Циклы
+/*
+ Все как и на Python и for и while.
+
+Есть еще repeat while цикл. Он работает чуть по другому. Пример:
+ 
+ var index = 20
+ repeat{
+    print(index)
+    index += 1
+ } while index < 10
+Исходя из примера можно понять одно, в отличии от обычного цикла while тут вход в цикл начинается с выполнения тело, а потом выполняется условие
+ */
+
+                        // Улучшение калькулятор с циклами
+
+print("Добро пожаловать в калькулятор")
+
+func inputData(description: String) -> String {
+    print(description)
+    let inputData = readLine() ?? ""
+    
+    return inputData
+}
+
+func calculate(operation: String, numberOne: Int, numberTwo: Int){
+    switch operation{
+        case "+": print("Результат: ", String(numberOne + numberTwo))
+        case "-": print("Результат: ", String(numberOne - numberTwo))
+        case "*": print("Результат: ", String(numberOne * numberTwo))
+        case "/":
+            if numberTwo != 0 {
+                print("Результат: ", String(numberOne / numberTwo))
+            } else {
+                print("На 0 делить нельзя!")
+            }
+        default: print("Вы ввелу неверную операцию")
+    }
+}
+
+while true {
+    
+    
+    let operation = inputData(description: "Выберите операцию: +, -, * или /. Для завершения работы нажмите 'q'" )
+    
+    if operation == "q" {
+        print("Exit calculate. See you!")
+        break
+    }
+    
+    let numberOne = inputData(description: "Введите первое целое число: ")
+    
+    let numberTwo = inputData(description: "Введите второе целое число: ")
+    
+    print("Идет вычисление...")
+    
+    if let numberOne = Int(numberOne){
+        if let numberTwo = Int(numberTwo){
+            calculate(operation: operation, numberOne: numberOne, numberTwo: numberTwo)
+        } else {
+            print("Вы ввели неправильно второе число => \(numberTwo)")
+        }
+    } else {
+        print("Вы ввели неправильно первое число => \(numberOne)")
+    }
+    
+    print("")
+    print("------------------------------------------------------------")
+    print("")
+}
