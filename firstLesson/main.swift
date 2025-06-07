@@ -370,29 +370,38 @@ func inputData(description: String) -> String {
     return inputData
 }
 
-func calculate(operation: String, numberOne: Int, numberTwo: Int){
+func calculate(operation: String, numberOne: Int, numberTwo: Int) -> Int?{
     switch operation{
-        case "+": print("Результат: ", String(numberOne + numberTwo))
-        case "-": print("Результат: ", String(numberOne - numberTwo))
-        case "*": print("Результат: ", String(numberOne * numberTwo))
+        case "+": return numberOne + numberTwo
+        case "-": return numberOne - numberTwo
+        case "*": return numberOne * numberTwo
         case "/":
             if numberTwo != 0 {
-                print("Результат: ", String(numberOne / numberTwo))
+                return numberOne / numberTwo
             } else {
                 print("На 0 делить нельзя!")
+                return nil
             }
         default: print("Вы ввелу неверную операцию")
+            return nil
     }
 }
+
+var history: [String] = []
 
 while true {
     
     
-    let operation = inputData(description: "Выберите операцию: +, -, * или /. Для завершения работы нажмите 'q'" )
+    let operation = inputData(description: "Выберите операцию: +, -, * или /. Для завершения работы введите 'q'. Для просмотра истории введите 'h'" )
     
     if operation == "q" {
         print("Exit calculate. See you!")
         break
+        //exit(0) Вот так еще можно, при использовании такого метода надо импортировать Darwin
+    } else if operation == "h"{
+        for element in history{
+            print(element)
+        }
     }
     
     let numberOne = inputData(description: "Введите первое целое число: ")
@@ -403,7 +412,13 @@ while true {
     
     if let numberOne = Int(numberOne){
         if let numberTwo = Int(numberTwo){
-            calculate(operation: operation, numberOne: numberOne, numberTwo: numberTwo)
+            let result = calculate(operation: operation, numberOne: numberOne, numberTwo: numberTwo)
+            if let result {
+                print("Результат: \(result)")
+                let localHistory = "\(numberOne) \(operation) \(numberTwo) = \(result) "
+                history.append(localHistory)
+                print(localHistory)
+            }
         } else {
             print("Вы ввели неправильно второе число => \(numberTwo)")
         }
@@ -413,5 +428,5 @@ while true {
     
     print("")
     print("------------------------------------------------------------")
-    print("")
+    print("") 
 }
