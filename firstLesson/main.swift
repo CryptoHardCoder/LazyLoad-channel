@@ -458,5 +458,88 @@ while true {
 
 
                     // Улучшение калькулятора с помощью guard
+import Darwin
 
- 
+func getUserData(description: String) -> String{
+    print(description)
+    let inputData = readLine() ?? ""
+    return inputData
+}
+
+func showResult(_ result: Int){
+    print("Результат: \(result)")
+}
+
+func showHistory(arrayHistory: [String]){
+    print("История: ")
+    for history in arrayHistory{
+        print(history)
+    }
+}
+
+func calculate(operation: String, firstNumber: Int, secondNumber: Int) -> Int? {
+    switch operation {
+        case "+": return firstNumber + secondNumber
+        case "-": return firstNumber - secondNumber
+        case "*": return firstNumber * secondNumber
+        case "/" where secondNumber == 0: print("На ноль делить нельзя!"); return nil
+        case "/": return firstNumber / secondNumber
+        default:
+                print("Вы ввели неправильный оператор")
+                return nil
+    }
+}
+
+func calculateWithUserInput(history: inout [String]) {
+    let operation = getUserData(description: "Выберите операцию: +, -, * или /")
+    guard operation == "+" || operation == "-" || operation == "*" || operation == "/" else {
+        print("Вы ввели неправильную операцию")
+        return
+    }
+    
+    let numberOne = getUserData(description: "Введите первое целое число:")
+    guard let numberOne = Int(numberOne) else {
+        print("Вы ввели неправильное число")
+        return
+    }
+    
+    let numberTwo = getUserData(description: "Введите второе целое число:")
+    guard let numberTwo = Int(numberTwo) else {
+        print("Вы ввели неправильное число")
+        return
+    }
+    
+    let result = calculate(operation: operation, firstNumber: numberOne, secondNumber: numberTwo)
+    
+    guard let result = result else {return}
+    if result < numberOne && operation == "/"{
+        print("Мы работаем только целыми числами!", "Поэтому при делении дробная часть была исключена", separator: "\n")
+    }
+    showResult(result)
+    
+    let calculateHistory = "\(String(numberOne)) \(operation) \(String(numberTwo)) = \(String(result))"
+    history.append(calculateHistory)
+}
+
+
+
+
+var history: [String] = []
+var countCycles = Int()
+while true {
+    if countCycles < 1{
+        print("Добро пожаловать")
+    }
+    countCycles += 1
+    
+    let action = getUserData(description: "Выберите функцию: q - Завершение работы, h - просмотр истории, c - расчет")
+    
+    switch action {
+        case "c": calculateWithUserInput(history: &history)
+        case "q": print("Завершение работы..."); exit(0)
+        case "h": showHistory(arrayHistory: history)
+        default:
+            print("Неправильная операция")
+    }
+    print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-")
+}
